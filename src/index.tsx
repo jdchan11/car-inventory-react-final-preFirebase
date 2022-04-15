@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-// import { FirebaseAppProvider, AuthCheck } from 'reactfire';
-import { Home, Inventory, Contact, About } from './components'
+import { FirebaseAppProvider, AuthCheck } from 'reactfire';
+import { Home, Inventory, Contact, About, SignIn } from './components'
 import './styles.css'
-// import { firebaseConfig } from './firebaseConfig'
-// import 'firebase/auth';
+import { firebaseConfig } from './firebaseConfig'
+import 'firebase/auth';
 import { Provider } from 'react-redux';
 import { store } from './redux/store'
 
@@ -13,7 +13,7 @@ const page_title = "Your Car Inventory"
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}> */}
+    <FirebaseAppProvider firebaseConfig={firebaseConfig} suspense={true}>
     <Provider store={store}>
     <Router>
       <Switch>
@@ -31,12 +31,15 @@ ReactDOM.render(
         <Route path='/About'>
           <About></About>
         </Route>
+        <Route path='/SignIn'>
+          <SignIn></SignIn>
+        </Route>
 
 
       </Switch>
     </Router>
     </Provider>
-    {/* </FirebaseAppProvider> */}
+    </FirebaseAppProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/images/undraw_by_my_car_ttge.svg';
+import {AuthCheck} from 'reactfire'
 
 const useStyles = makeStyles({
     logo: {
@@ -73,21 +74,31 @@ export const Navbar = () => {
             </div>
             <div className={`${classes.width60} ${classes.alignCenter}`}>
                 <ul className={`${classes.ul} ${classes.row} ${classes.spaceBetween} ${classes.psides}`}>
-                    <li>
-                        <Button>
-                        <Link to='Inventory' className={`${classes.navbarItem} ${classes.psides}`}>My Inventory</Link>
-                        </Button>
-                    </li>
-                    <li>
-                        <Button>
-                            <Link to='Contact' className={`${classes.navbarItem} ${classes.psides}`}>Contact Us</Link>
-                        </Button>
-                    </li>
-                    <li>
-                        <Button>
-                            <Link to='About' className={`${classes.navbarItem} ${classes.psides}`}>About Us</Link>
-                        </Button>
-                    </li>
+                    <Suspense fallback={'loading...'}>
+                        <AuthCheck fallback={
+                            <li>
+                                <Button>
+                                    <Link to='/SignIn' className={`${classes.navbarItem} ${classes.psides}`}>Sign In</Link>
+                                </Button>
+                            </li>
+                        }>
+                        <li>
+                            <Button>
+                            <Link to='Inventory' className={`${classes.navbarItem} ${classes.psides}`}>My Inventory</Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button>
+                                <Link to='Contact' className={`${classes.navbarItem} ${classes.psides}`}>Contact Us</Link>
+                            </Button>
+                        </li>
+                        <li>
+                            <Button>
+                                <Link to='About' className={`${classes.navbarItem} ${classes.psides}`}>About Us</Link>
+                            </Button>
+                        </li>
+                        </AuthCheck>
+                    </Suspense>
                 </ul>
             </div>
         </div>
